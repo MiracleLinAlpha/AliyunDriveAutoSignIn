@@ -1,0 +1,5 @@
+version: "3.0"
+services:
+   aliyun_drive_auto_sign_in:
+     build: .
+     
