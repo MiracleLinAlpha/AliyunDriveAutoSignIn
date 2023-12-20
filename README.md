@@ -1,21 +1,61 @@
 # 阿里云盘自动签到
 
+## 运行环境
+
+````
+版本
+python 3.8
+
+依赖包
+PyYAML
+requests
+tenacity
+````
+
 ## 使用
 
-### 直接运行
+### 配置
 
-修改 config.yaml 文件
-添加阿里云盘的 access_token 与 refresh_token
+````
+1、打开阿里云盘网页端
 
-### Docker 运行
+2、F12 切换到 应用程序选项卡
 
-docker build -t aliyun_drive_auto_sign_in .
+3、定位到 Local storage --> https:www.alipan.com --> token
 
-docker run -d -e access_token=你的access_token -e refresh_token=你的refresh_token aliyun_drive_auto_sign_in
+4、找到 access_token 与 refresh_token
 
-如需使用钉钉机器人通知
-则添加
--e dingding_webhook_url=你的dingding_webhook_url
--e dingding_webhook_secret=你的dingding_webhook_secret
+5、编辑配置文件 config.yaml
 
-### Docker Compose 运行
+access_token: 前边找到的 access_token
+refresh_token: 前边找到的 refresh_token
+dingding_webhook_url: （无则无需填写）钉钉 webhook_url 
+dingding_webhook_secret: （无则无需填写）钉钉 webhook_secret
+
+````
+
+### 运行
+
+````
+pip3 install -r ./requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+python3 main.py
+````
+
+### 添加到定时任务
+
+````
+crontab -e
+
+0 8 * * * /bin/python3 /root/aliyun_drive_auto_sign_in/main.py >/dev/null 2>&1
+
+每天8点执行脚本
+
+脚本放置位置：
+
+````
+
+### 引用
+部分代码参考自以下作者：
+- @libuke: [libuke/aliyundrive-checkin](https://github.com/libuke/aliyundrive-checkin)
+

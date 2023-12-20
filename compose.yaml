@@ -2,3 +2,9 @@ version: "3.0"
 services:
    aliyun_drive_auto_sign_in:
      build: .
+     environment:
+       - access_token=
+       - refresh_token=
+       - dingding_webhook_url=
+       - dingding_webhook_secret=
+
